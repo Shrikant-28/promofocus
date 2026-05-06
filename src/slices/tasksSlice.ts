@@ -15,21 +15,35 @@ const initialState: TasksState = {
 };
 
 export const startTaskListener = createAsyncThunk<void, string>("tasks/startTaskListener", async (userId, { dispatch }) => {
+  // Skip Firestore sync for guest users
+  if (userId.startsWith("guest_")) {
+    dispatch(taskListenerUpdated([]));
+    return;
+  }
   subscribeTasks(userId, tasks => {
     dispatch(taskListenerUpdated(tasks));
   });
 });
 
 export const createTask = createAsyncThunk<void, Omit<Task, "id">>("tasks/createTask", async task => {
+  // Skip Firestore save for guest users
+  if (task.userId.startsWith("guest_")) {
+    return;
+  }
   await addTask(task);
 });
 
 export const modifyTask = createAsyncThunk<void, { taskId: string; data: Partial<Task> }>("tasks/modifyTask", async ({ taskId, data }) => {
+  // Skip Firestore update for guest users
+  if (data.userId?.startsWith("guest_")) {
+    return;
+  }
   await updateTask(taskId, data);
 });
 
 export const removeTask = createAsyncThunk<void, string>("tasks/removeTask", async taskId => {
-  await deleteTask(taskId);
+  // Guest tasks only exist locally, no Firestore removal needed
+  return;
 });
 
 const tasksSlice = createSlice({

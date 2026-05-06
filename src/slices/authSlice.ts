@@ -50,6 +50,17 @@ const authSlice = createSlice({
       state.user = action.payload;
       state.loading = false;
       state.error = null;
+    },
+    setGuestMode(state) {
+      state.user = {
+        id: "guest_" + Date.now(),
+        name: "Guest Developer",
+        email: "",
+        photoURL: "",
+        createdAt: Date.now()
+      };
+      state.loading = false;
+      state.error = null;
     }
   },
   extraReducers: builder => {
@@ -63,5 +74,5 @@ const authSlice = createSlice({
   }
 });
 
-export const { setUser } = authSlice.actions;
+export const { setUser, setGuestMode } = authSlice.actions;
 export default authSlice.reducer;

@@ -21,7 +21,7 @@ Notifications.setNotificationHandler({
   })
 });
 
-export default function App() {
+function AppContent() {
   useTimerRecovery();
 
   useEffect(() => {
@@ -29,12 +29,18 @@ export default function App() {
   }, []);
 
   return (
+    <SafeAreaProvider>
+      <AppNavigator />
+      <StatusBar style="light" />
+    </SafeAreaProvider>
+  );
+}
+
+export default function App() {
+  return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Provider store={store}>
-        <SafeAreaProvider>
-          <AppNavigator />
-          <StatusBar style="light" />
-        </SafeAreaProvider>
+        <AppContent />
       </Provider>
     </GestureHandlerRootView>
   );

@@ -1,13 +1,16 @@
 import { View, Text, Pressable, Image, ActivityIndicator } from "react-native";
 import * as WebBrowser from "expo-web-browser";
+import { useAppDispatch } from "@hooks/useAppDispatch";
 import { useAppSelector } from "@hooks/useAppSelector";
 import { RootState } from "@store";
+import { setGuestMode } from "@slices/authSlice";
 import { colors, spacing } from "@utils/theme";
 import { useGoogleAuth } from "@services/googleAuth";
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function LoginScreen() {
+  const dispatch = useAppDispatch();
   const { loading, error } = useAppSelector((state: RootState) => state.auth);
   const { promptAsync } = useGoogleAuth();
 
@@ -33,6 +36,21 @@ export default function LoginScreen() {
         }}
       >
         {loading ? <ActivityIndicator color="#000" /> : <Text style={{ color: "#000", fontWeight: "700" }}>Continue with Google</Text>}
+      </Pressable>
+      <Pressable
+        onPress={() => dispatch(setGuestMode())}
+        style={{
+          marginTop: spacing.md,
+          width: "100%",
+          backgroundColor: colors.surface,
+          borderColor: colors.primary,
+          borderWidth: 2,
+          paddingVertical: spacing.md,
+          borderRadius: 14,
+          alignItems: "center"
+        }}
+      >
+        <Text style={{ color: colors.primary, fontWeight: "700" }}>Use as Guest</Text>
       </Pressable>
       {error ? <Text style={{ color: colors.danger, marginTop: spacing.sm }}>{error}</Text> : null}
     </View>

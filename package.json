@@ -5,10 +5,16 @@
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
     "web": "expo start --web",
-    "lint": "eslint . --ext .ts,.tsx"
+    "lint": "eslint . --ext .ts,.tsx",
+    "clean": "rm -rf node_modules package-lock.json .expo",
+    "clean:node": "rm -rf node_modules package-lock.json",
+    "clean:expo": "rm -rf .expo .expo-shared",
+    "clean:android": "rm -rf android/build android/app/build",
+    "clean:ios": "rm -rf ios/build",
+    "clean:all": "npm run clean:node && npm run clean:expo && npm run clean:android && npm run clean:ios"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.20.1",

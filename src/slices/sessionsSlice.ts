@@ -15,12 +15,21 @@ const initialState: SessionsState = {
 };
 
 export const startSessionListener = createAsyncThunk<void, string>("sessions/startSessionListener", async (userId, { dispatch }) => {
+  // Skip Firestore sync for guest users
+  if (userId.startsWith("guest_")) {
+    dispatch(sessionListenerUpdated([]));
+    return;
+  }
   subscribeSessions(userId, sessions => {
     dispatch(sessionListenerUpdated(sessions));
   });
 });
 
 export const logSession = createAsyncThunk<void, Omit<PomodoroSession, "id">>("sessions/logSession", async session => {
+  // Skip Firestore save for guest users
+  if (session.userId.startsWith("guest_")) {
+    return;
+  }
   await createSession(session);
 });
 
