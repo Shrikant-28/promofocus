@@ -1,0 +1,79 @@
+# macOS
+.DS_Store
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Node
+node_modules/
+npm-debug.log
+yarn.lock
+package-lock.json
+
+# Expo
+.expo/
+.expo-shared/
+dist/
+
+# Metro bundler
+.metro-health-check*
+
+# React Native
+*.hprof
+
+# Android
+android/.gradle/
+android/app/build/
+android/build/
+android/local.properties
+*.keystore
+*.jks
+
+# iOS
+ios/build/
+ios/Pods/
+ios/*.xcworkspace
+ios/*.xcuserdata/
+ios/*.xcuserstate
+ios/DerivedData/
+
+# Xcode
+*.xcuserstate
+*.xcworkspace
+xcuserdata/
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots
+fastlane/test_output
+
+# Environment variables
+.env
+.env.*
+
+# Temporary files
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# IDEs
+.vscode/
+.idea/
+
+# TypeScript
+*.tsbuildinfo
+
+# Coverage
+coverage/
+
+# Jest
+jest-cache/
+
+# ESLint cache
+.eslintcache
